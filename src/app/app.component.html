@@ -1,13 +1,20 @@
 <div id="Translation">
   <h1>Translated article</h1>
   <div class="p-3">
-    <bsi-input
-      id="exampleInputText"
-      label="Inserisci il tuo nome"
-      (input)="handleInput($event)"
-    ></bsi-input>
-    <bsi-button variant="primary" (click)="handleClick()">Send</bsi-button>
-    <bsi-button variant="primary" outline="true">Cancel</bsi-button>
+    <form [formGroup]="form">
+      <bsi-input
+        formControlName="name"
+        ngDefaultControl
+        id="exampleInputText"
+        label="Inserisci il tuo nome"
+      ></bsi-input>
+      <!-- (input)="handleInput($event)" -->
+      <bsi-button variant="primary" [disabled]="form.invalid">Send</bsi-button>
+    </form>
+
+    <bsi-button variant="primary" outline="true" (click)="handleClick()"
+      >Cancel</bsi-button
+    >
     <bsi-button variant="primary" disabled="true">Feeling lucky</bsi-button>
   </div>
   <h3>The standard Lorem Ipsum passage, used since the 1500s</h3>

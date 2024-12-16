@@ -1,10 +1,16 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -12,11 +18,24 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   currentValue = signal('');
   title = 'angular-wc';
-  handleInput($event: Event) {
-    const inputElement = $event.target as HTMLInputElement;
-    this.currentValue.set(inputElement.value);
+
+  form = new FormGroup({
+    name: new FormControl('', Validators.required),
+  });
+
+  ngOnInit() {
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
   }
+
+  // handleInput($event: Event) {
+  //   const inputElement = $event.target as HTMLInputElement;
+  //   this.currentValue.set(inputElement.value);
+  //   console.log(this.form.get('name'));
+  //   this.form.get('name')?.patchValue(inputElement.value);
+  // }
   handleClick() {
-    alert(this.currentValue());
+    console.log(this.form.invalid);
   }
 }
