@@ -35,6 +35,10 @@ export class AppComponent {
   //   console.log(this.form.get('name'));
   //   this.form.get('name')?.patchValue(inputElement.value);
   // }
+
+  handleSubmit() {
+    console.log(this.form.value);
+  }
   handleClick() {
     console.log(this.form.invalid);
   }
